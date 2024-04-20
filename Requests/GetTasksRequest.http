@@ -1,6 +1,6 @@
 @Todo_HostAddress = https://localhost:7104
 
-GET {{Todo_HostAddress}}/weatherforecast/
+GET {{Todo_HostAddress}}/tasks/
 Accept: application/json
 
 ###
