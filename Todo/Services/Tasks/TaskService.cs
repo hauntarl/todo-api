@@ -31,7 +31,7 @@ public class TaskService : ITaskService
         bool? filterByCompleted,
         string? sortBy)
     {
-        return await Task.Run<List<TaskItem>>(() => {
+        return await Task.Run(() => {
             var items = _tasks.Values.ToList();
             // Filter tasks based on the completed parameter value
             if (filterByCompleted != null)
