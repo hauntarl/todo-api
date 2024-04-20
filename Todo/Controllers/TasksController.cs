@@ -25,7 +25,7 @@ public class TasksController : ApiController
         [FromQuery(Name = "sort_by")] string? sortBy)
     {
         // Fetch all tasks from the service
-        var taskItemsResult = await _taskService.FetchTasks();
+        var taskItemsResult = await _taskService.FetchTasks(completed, sortBy);
         // If the result is an error, return a Problem with appropriate status code
         if (taskItemsResult.IsError)
         {
@@ -34,15 +34,6 @@ public class TasksController : ApiController
 
         // Get the tasks items from service result
         var items = taskItemsResult.Value;
-
-        // Filter tasks based on the completed parameter value
-        if (completed != null)
-        {
-            items.RemoveAll(item => item.Completed != completed.Value);
-        }
-
-        // Sort the tasks based on the sort_by parameter value
-        items = Sort(items, sortBy);
 
         // Convert all tasks to TaskResponse objects.
         var response = items.ConvertAll(item => item.ToResponse());
@@ -132,17 +123,6 @@ public class TasksController : ApiController
         return deleteResult.Match(
             _ => NoContent(),
             Problem);
-    }
-
-    public List<TaskItem> Sort(List<TaskItem> items, string? sortBy)
-    {
-        return sortBy switch
-        {
-            "dueDate" => [.. items.OrderBy(item => item.DueDate)],
-            "-dueDate" => [.. items.OrderByDescending(item => item.DueDate)],
-            "createdDate" => [.. items.OrderBy(item => item.CreatedDate)],
-            _ => [.. items.OrderByDescending(item => item.CreatedDate)],
-        };
     }
 
     // * Helper method that produces a 201 (Created) response with location of the created task

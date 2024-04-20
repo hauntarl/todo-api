@@ -11,7 +11,7 @@ public interface ITaskService
 
     Task<ErrorOr<TaskItem>> FetchTask(Guid id);
 
-    Task<ErrorOr<List<TaskItem>>> FetchTasks();
+    Task<ErrorOr<List<TaskItem>>> FetchTasks(bool? filterByCompleted, string? sortBy);
 
     Task<ErrorOr<UpdatedTask>> UpdateTask(TaskItem item);
 }

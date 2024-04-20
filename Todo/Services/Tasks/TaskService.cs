@@ -27,9 +27,21 @@ public class TaskService : ITaskService
         return item != null ? item : Errors.TaskItem.NotFound;
     }
 
-    public async Task<ErrorOr<List<TaskItem>>> FetchTasks()
+    public async Task<ErrorOr<List<TaskItem>>> FetchTasks(
+        bool? filterByCompleted,
+        string? sortBy)
     {
-        return await Task.Run(() => _tasks.Values.ToList());
+        return await Task.Run<List<TaskItem>>(() => {
+            var items = _tasks.Values.ToList();
+            // Filter tasks based on the completed parameter value
+            if (filterByCompleted != null)
+            {
+                items.RemoveAll(item => item.Completed != filterByCompleted.Value);
+            }
+
+            // Sort the tasks based on the sort_by parameter value
+            return Sort(items, sortBy);
+         });
     }
 
     public async Task<ErrorOr<UpdatedTask>> UpdateTask(TaskItem item)
@@ -40,5 +52,16 @@ public class TaskService : ITaskService
             _tasks[item.Id] = item;
             return new UpdatedTask(isNewlyCreated);
         });
+    }
+
+    private static List<TaskItem> Sort(List<TaskItem> items, string? sortBy)
+    {
+        return sortBy switch
+        {
+            "dueDate" => [.. items.OrderBy(item => item.DueDate)],
+            "-dueDate" => [.. items.OrderByDescending(item => item.DueDate)],
+            "createdDate" => [.. items.OrderBy(item => item.CreatedDate)],
+            _ => [.. items.OrderByDescending(item => item.CreatedDate)],
+        };
     }
 }
