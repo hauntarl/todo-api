@@ -1,9 +1,12 @@
+using ErrorOr;
 using Todo.Contracts.Tasks;
+using Todo.ServiceErrors;
 
 namespace Todo.Models;
 
 public class TaskItem
 {
+    public const int MinTaskDescriptionLength = 3;
     public Guid Id { get; }
     public string TaskDescription { get; }
     public DateTime CreatedDate { get; }
@@ -25,24 +28,29 @@ public class TaskItem
     }
 
     // * Factory method for creating a new task item
-    public static TaskItem Create(
+    public static ErrorOr<TaskItem> Create(
         string taskDescription,
         DateTime dueDate,
         bool completed,
         Guid? id = null,
         DateTime? createdDate = null)
     {
-        // TODO: Enforce constraints
+        var _taskDescription = taskDescription.Trim();
+        if (_taskDescription.Length is < MinTaskDescriptionLength)
+        {
+            return Errors.TaskItem.InvalidDescription;
+        }
+
         return new TaskItem(
             id ?? Guid.NewGuid(),
-            taskDescription,
+            _taskDescription,
             createdDate ?? DateTime.UtcNow,
             dueDate,
             completed);
     }
 
     // * Factory method for creating a new task item from CreateTaskRequest
-    public static TaskItem From(CreateTaskRequest request)
+    public static ErrorOr<TaskItem> From(CreateTaskRequest request)
     {
         return Create(
             request.TaskDescription,
@@ -51,8 +59,13 @@ public class TaskItem
     }
 
     // * Factory method for creating a new task item from UpdateTaskRequest
-    public static TaskItem From(Guid id, UpdateTaskRequest request)
+    public static ErrorOr<TaskItem> From(Guid id, UpdateTaskRequest request)
     {
+        if (id != request.Id)
+        {
+            return Errors.TaskItem.InvalidId;
+        }
+
         return Create(
             request.TaskDescription,
             request.DueDate,

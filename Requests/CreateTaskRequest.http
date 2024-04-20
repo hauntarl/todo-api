@@ -19,3 +19,14 @@ Content-Type: application/json
     "dueDate": "2023-06-20T15:00:00",
     "completed": false
 }
+
+###
+
+POST {{Todo_HostAddress}}/tasks
+Content-Type: application/json
+
+{
+    "taskDescription": "  Cl  ",
+    "dueDate": "2023-06-20T15:00:00",
+    "completed": false
+}

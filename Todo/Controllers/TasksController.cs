@@ -20,12 +20,20 @@ public class TasksController : ApiController
 
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public IActionResult FetchTasks(
+    public async Task<IActionResult> FetchTasks(
         [FromQuery] bool? completed,
         [FromQuery(Name = "sort_by")] string? sortBy)
     {
         // Fetch all tasks from the service
-        var items = _taskService.FetchTasks();
+        var taskItemsResult = await _taskService.FetchTasks();
+        // If the result is an error, return a Problem with appropriate status code
+        if (taskItemsResult.IsError)
+        {
+            return Problem(taskItemsResult.Errors);
+        }
+
+        // Get the tasks items from service result
+        var items = taskItemsResult.Value;
 
         // Filter tasks based on the completed parameter value
         if (completed != null)
@@ -46,61 +54,84 @@ public class TasksController : ApiController
     [HttpGet("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public IActionResult FetchTask(Guid id)
+    public async Task<IActionResult> FetchTask(Guid id)
     {
         // Fetch task for given id
-        var item = _taskService.FetchTask(id);
+        var taskResult = await _taskService.FetchTask(id);
 
-        // Convert task to TaskResponse object
-        var response = item.ToResponse();
-
-        // Return 200 (OK) with a TaskResponse object
-        return Ok(response);
+        // Returns 200 (OK) with the TaskResponse object
+        // Returns a Problem response with appropriate status code
+        return taskResult.Match(
+            item => Ok(item.ToResponse()),
+            Problem);
     }
 
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public IActionResult CreateTask(CreateTaskRequest request)
+    public async Task<IActionResult> CreateTask(CreateTaskRequest request)
     {
         // Create a TaskItem object from the given CreateTaskRequest
-        var item = TaskItem.From(request);
+        var itemResult = TaskItem.From(request);
+        // If the result is an error, return a Problem with appropriate status code
+        if (itemResult.IsError) 
+        {
+            return Problem(itemResult.Errors);
+        }
+
+        // Get the tasks item from the service result
+        var item = itemResult.Value;
 
         // Request the task service to create a new task from TaskItem
-        _taskService.CreateTask(item);
-
-        // Return 201 (Created) with location of the created task
-        return CreatedAtFetchTask(item);
+        var createResult = await _taskService.CreateTask(item);
+        
+        // Returns 201 (Created) with location of the newly created task
+        // Returns a Problem response with appropriate status code
+        return createResult.Match(
+            _ => CreatedAtFetchTask(item),
+            Problem
+        );
     }
 
     [HttpPut("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public IActionResult UpdateTask(Guid id, UpdateTaskRequest request)
+    public async Task<IActionResult> UpdateTask(Guid id, UpdateTaskRequest request)
     {
         // Create a TaskItem object from the given Guid and UpdateTaskRequest
-        var item = TaskItem.From(id, request);
-
+        var itemResult = TaskItem.From(id, request);
+        // If the result is an error, return a Problem with appropriate status code
+        if (itemResult.IsError)
+        {
+            return Problem(itemResult.Errors);
+        }
+        
+        // Get the tasks item from the service result
+        var item = itemResult.Value;
         // Request the task service to update a new task from TaskItem
-        var updateResult = _taskService.UpdateTask(item);
+        var updateResult = await _taskService.UpdateTask(item);
 
-        // Return 201 (Created) if the task was newly created
-        // Return 204 (No Content) if the task was updated
-        return updateResult.IsNewlyCreated
-        ? CreatedAtFetchTask(item)
-        : NoContent();
+        // Returns 201 (Created) if the task was newly created
+        // Returns 204 (No Content) if the task was updated
+        // Returns a Problem response with appropriate status code
+        return updateResult.Match(
+            status => status.IsNewlyCreated ? CreatedAtFetchTask(item) : NoContent(),
+            Problem);
     }
 
     [HttpDelete("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public IActionResult DeleteBreakfast(Guid id)
+    public async Task<IActionResult> DeleteBreakfast(Guid id)
     {
         // Request task service to delete TaskItem object for given id
-        _taskService.DeleteTask(id);
+        var deleteResult = await _taskService.DeleteTask(id);
 
-        // Return 204 (No Content)
-        return NoContent();
+        // Returns 204 (No Content) if task deleted successfully
+        // Returns a Problem response with appropriate status code
+        return deleteResult.Match(
+            _ => NoContent(),
+            Problem);
     }
 
     public List<TaskItem> Sort(List<TaskItem> items, string? sortBy)

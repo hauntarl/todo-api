@@ -1,16 +1,17 @@
+using ErrorOr;
 using Todo.Models;
 
 namespace Todo.Services.Tasks;
 
 public interface ITaskService
 {
-    void CreateTask(TaskItem item);
+    Task<ErrorOr<Created>> CreateTask(TaskItem item);
 
-    void DeleteTask(Guid id);
+    Task<ErrorOr<Deleted>> DeleteTask(Guid id);
 
-    TaskItem FetchTask(Guid id);
+    Task<ErrorOr<TaskItem>> FetchTask(Guid id);
 
-    List<TaskItem> FetchTasks();
+    Task<ErrorOr<List<TaskItem>>> FetchTasks();
 
-    UpdatedTask UpdateTask(TaskItem item);
+    Task<ErrorOr<UpdatedTask>> UpdateTask(TaskItem item);
 }

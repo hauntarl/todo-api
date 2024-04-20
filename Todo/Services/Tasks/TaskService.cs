@@ -1,36 +1,44 @@
 
+using ErrorOr;
 using Todo.Models;
+using Todo.ServiceErrors;
 
 namespace Todo.Services.Tasks;
 
 public class TaskService : ITaskService
 {
-    private static readonly Dictionary<Guid, TaskItem> _tasks = new();
+    private static readonly Dictionary<Guid, TaskItem> _tasks = [];
 
-    public void CreateTask(TaskItem item)
+    public async Task<ErrorOr<Created>> CreateTask(TaskItem item)
     {
-        _tasks.Add(item.Id, item);
+        await Task.Run(() => _tasks.Add(item.Id, item));
+        return Result.Created;
     }
 
-    public void DeleteTask(Guid id)
+    public async Task<ErrorOr<Deleted>> DeleteTask(Guid id)
     {
-        _tasks.Remove(id);
+        await Task.Run(() => _tasks.Remove(id));
+        return Result.Deleted;
     }
 
-    public TaskItem FetchTask(Guid id)
+    public async Task<ErrorOr<TaskItem>> FetchTask(Guid id)
     {
-        return _tasks[id];
+        var item = await Task.Run(() => _tasks.GetValueOrDefault(id));
+        return item != null ? item : Errors.TaskItem.NotFound;
     }
 
-    public List<TaskItem> FetchTasks()
+    public async Task<ErrorOr<List<TaskItem>>> FetchTasks()
     {
-        return [.. _tasks.Values];
+        return await Task.Run(() => _tasks.Values.ToList());
     }
 
-    public UpdatedTask UpdateTask(TaskItem item)
+    public async Task<ErrorOr<UpdatedTask>> UpdateTask(TaskItem item)
     {
-        var isNewlyCreated = !_tasks.ContainsKey(item.Id);
-        _tasks[item.Id] = item;
-        return new UpdatedTask(isNewlyCreated);
+        return await Task.Run(() =>
+        {
+            var isNewlyCreated = !_tasks.ContainsKey(item.Id);
+            _tasks[item.Id] = item;
+            return new UpdatedTask(isNewlyCreated);
+        });
     }
 }
