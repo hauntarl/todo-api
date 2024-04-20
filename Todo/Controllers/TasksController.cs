@@ -3,9 +3,7 @@ using Todo.Contracts.Task;
 
 namespace Todo.Controllers;
 
-[ApiController]
-[Route("[controller]")]
-public class TasksController : ControllerBase
+public class TasksController : ApiController
 {
     private readonly ILogger<TasksController> _logger;
 
