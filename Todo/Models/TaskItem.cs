@@ -1,4 +1,4 @@
-using Todo.Contracts.Task;
+using Todo.Contracts.Tasks;
 
 namespace Todo.Models;
 

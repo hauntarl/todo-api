@@ -1,13 +1,16 @@
 @Todo_HostAddress = https://localhost:7104
 
-POST {{Todo_HostAddress}}/tasks
+@Id = 43342247-016d-4dfd-ae0e-b9f45eef1136
+
+PUT {{Todo_HostAddress}}/tasks/{{Id}}
 Content-Type: application/json
 
 {
-    "taskDescription": "Grocery Shopping",
-    "createdDate": "2022-04-08T08:00:00",
-    "dueDate": "2022-04-08T11:00:00",
-    "completed": false
+    "id": "43342247-016d-4dfd-ae0e-b9f45eef1136",
+    "taskDescription": "Clean House",
+    "createdDate": "2024-04-20T04:52:12.31852Z",
+    "dueDate": "2023-06-20T15:00:00",
+    "completed": true
 }
 
 ###

@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using Todo.Contracts.Task;
+using Todo.Contracts.Tasks;
 using Todo.Models;
 using Todo.Services.Tasks;
 

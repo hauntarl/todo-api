@@ -1,4 +1,4 @@
-namespace Todo.Contracts.Task;
+namespace Todo.Contracts.Tasks;
 
 public record TaskResponse(
     Guid Id,
