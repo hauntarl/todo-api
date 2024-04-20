@@ -12,5 +12,5 @@ public interface ITaskService
 
     List<TaskItem> FetchTasks();
 
-    void UpdateTask(TaskItem item);
+    UpdatedTask UpdateTask(TaskItem item);
 }

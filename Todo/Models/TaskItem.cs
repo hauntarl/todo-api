@@ -51,13 +51,13 @@ public class TaskItem
     }
 
     // * Factory method for creating a new task item from UpdateTaskRequest
-    public static TaskItem From(UpdateTaskRequest request)
+    public static TaskItem From(Guid id, UpdateTaskRequest request)
     {
         return Create(
             request.TaskDescription,
             request.DueDate,
             request.Completed,
-            request.Id,
+            id,
             request.CreatedDate);
     }
 

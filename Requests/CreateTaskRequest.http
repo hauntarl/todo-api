@@ -10,3 +10,12 @@ Content-Type: application/json
 }
 
 ###
+
+POST {{Todo_HostAddress}}/tasks
+Content-Type: application/json
+
+{
+    "taskDescription": "Clean House",
+    "dueDate": "2023-06-20T15:00:00",
+    "completed": false
+}

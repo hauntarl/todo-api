@@ -27,8 +27,10 @@ public class TaskService : ITaskService
         return [.. _tasks.Values];
     }
 
-    public void UpdateTask(TaskItem item)
+    public UpdatedTask UpdateTask(TaskItem item)
     {
+        var isNewlyCreated = _tasks.ContainsKey(item.Id);
         _tasks[item.Id] = item;
+        return new UpdatedTask(isNewlyCreated);
     }
 }
