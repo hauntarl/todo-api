@@ -1,0 +1,13 @@
+@Todo_HostAddress = https://localhost:7104
+
+POST {{Todo_HostAddress}}/tasks
+Content-Type: application/json
+
+{
+    "taskDescription": "Grocery Shopping",
+    "createdDate": "2022-04-08T08:00:00",
+    "dueDate": "2022-04-08T11:00:00",
+    "completed": false
+}
+
+###

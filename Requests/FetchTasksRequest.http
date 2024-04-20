@@ -1,0 +1,29 @@
+@Todo_HostAddress = https://localhost:7104
+
+@Completed = true
+# @Completed = false
+
+@Sort_by = dueDate
+# @Sort_by = -dueDate
+# @Sort_by = createdDate
+# @Sort_by = -createdDate
+
+GET {{Todo_HostAddress}}/tasks
+Accept: application/json
+
+###
+
+GET {{Todo_HostAddress}}/tasks?completed={{Completed}}
+Accept: application/json
+
+###
+
+GET {{Todo_HostAddress}}/tasks?sort_by={{Sort_by}}
+Accept: application/json
+
+###
+
+GET {{Todo_HostAddress}}/tasks?completed={{Completed}}&sort_by={{Sort_by}}
+Accept: application/json
+
+###

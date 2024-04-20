@@ -1,0 +1,7 @@
+@Todo_HostAddress = https://localhost:7104
+@Id = b5c0ad97-65bd-4b57-b7d4-2a2f9f9353b9
+
+GET {{Todo_HostAddress}}/tasks/{{Id}}
+Accept: application/json
+
+###

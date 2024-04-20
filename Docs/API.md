@@ -15,7 +15,7 @@ They will have to ability to create new tasks as well as update or delete existi
 - type: **bool**
 - description: filters tasks by completed status
 
-* name: `?sort_by=+dueDate` *(Optional)*
+* name: `?sort_by=dueDate` *(Optional)*
 * type: **string**
 * description: sorts by due date (ascending)
 
@@ -23,14 +23,13 @@ They will have to ability to create new tasks as well as update or delete existi
 - type: **string**
 - description: sorts by due date (descending)
 
-* name: `?sort_by=+createdDate` *(Optional)*
+* name: `?sort_by=createdDate` *(Optional)*
 * type: **string**
 * description: sorts by created date (ascending)
 
 - name: `?sort_by=-createdDate` *(Optional)*
 - type: **string**
 - description: sorts by created date (descending)
-
 
 Response Code: `200` OK
 
