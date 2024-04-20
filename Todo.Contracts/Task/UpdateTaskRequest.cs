@@ -5,5 +5,4 @@ public record UpdateTaskRequest(
     string TaskDescription,
     DateTime CreatedDate,
     DateTime DueDate,
-    bool Completed
-);
+    bool Completed);
