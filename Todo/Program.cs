@@ -1,17 +1,20 @@
 // * The builder variable is used for dependency injection and configuration
+using Todo.Services.Tasks;
+
 var builder = WebApplication.CreateBuilder(args);
 {
     // Add services to the container.
     builder.Services.AddControllers();
+    // * Inject TaskService dependency
+    builder.Services.AddScoped<ITaskService, TaskService>();
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
 }
 
-// * The app variable is used to manage the request pipeline
+// * The app variable is used to manage and configure the HTTP request pipeline
 var app = builder.Build();
 {
-    // Configure the HTTP request pipeline.
     if (app.Environment.IsDevelopment())
     {
         app.UseSwagger();

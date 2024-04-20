@@ -1,15 +1,20 @@
 using Microsoft.AspNetCore.Mvc;
 using Todo.Contracts.Task;
+using Todo.Services.Tasks;
 
 namespace Todo.Controllers;
 
 public class TasksController : ApiController
 {
     private readonly ILogger<TasksController> _logger;
+    private readonly ITaskService _taskService;
 
-    public TasksController(ILogger<TasksController> logger)
+    public TasksController(
+        ILogger<TasksController> logger,
+        ITaskService taskService)
     {
         _logger = logger;
+        _taskService = taskService;
     }
 
     [HttpGet]
