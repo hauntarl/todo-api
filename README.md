@@ -78,30 +78,30 @@ package, and all the client needs to do is consume the new package.
 ## ⚙️ Setup
 
 Create a template `.gitignore` for a **dotnet** project:
-```cs
+```console
 % dotnet new gitignore
 ```
 
 Create a **Todo** solution:
-```cs
+```console
 % dotnet new sln -o Todo
 The template "Solution File" was created successfully.
 ```
 
 Create **Contracts** project: (stores models representing the *[API Specification](Docs/API.md)*)
-```cs
+```console
 % dotnet new classlib -o Todo.Contracts
 The template "Class Library" was created successfully.
 ```
 
 Create a new **webapi** app using the **controllers** template:
-```cs
+```console
 % dotnet new webapi --use-controllers -o Todo
 The template "ASP.NET Core Web API" was created successfully.
 ```
 
 Try building the project:
-```cs
+```console
 % dotnet build
 Build succeeded.
 warning : Unable to find a project to restore!
@@ -111,7 +111,7 @@ warning : Unable to find a project to restore!
 > we look at the solution file then we can see its still empty and there are actually no projects.
 
 Add both of our projects to the solution file:
-```cs
+```console
 % dotnet sln add Todo.Contracts Todo
 ```
 
@@ -132,37 +132,37 @@ reference types enabled.
 Create the *[Tasks](Todo.Contracts/Tasks)* request and response models under 
 [Todo.Contracts/](Todo.Contracts) based on the given *[API specification](Docs/API.md)*.
 
-> <img src="Docs/Images/API-Specifications.png" width="500">
+> <img src="Docs/Images/API-Specification.png" width="500">
 
 Add the **Contract's** namespace to our **Todo** application:
-```cs
+```console
 % dotnet add Todo reference Todo.Contracts
 ```
 
 ### Dependencies
 
 Add the `ErrorOr` package to our **Todo** application for error handling:
-```cs
+```console
 % dotnet add Todo package ErrorOr
 ```
 
 ## 🏃‍➡️ Build and run
 
 Start the application in `http` mode:
-```cs
+```console
 % dotnet build
 % dotnet run --project Todo
 ```
 
 To start the app in `https` mode, add the **HTTPS development certificates** to trusted 
 certificates:
-```cs
+```console
 % dotnet dev-certs https --trust
 Successfully trusted the existing HTTPS certificate.
 ```
 
 Then select `https` launch profile while starting the application:
-```cs
+```console
 % dotnet build
 % dotnet run --launch-profile https --project Todo
 ```
