@@ -169,7 +169,7 @@ PUT /tasks/{id}
 ```js
 204 No Content
 ```
-```json
+```
 <empty>
 ```
 
@@ -218,8 +218,10 @@ DELETE /tasks/{id}
 
 #### Success
 
-`204` No Content
-```json
+```js
+204 No Content
+```
+```
 <empty>
 ```
 
