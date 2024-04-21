@@ -7,7 +7,9 @@ They will have to ability to create new tasks as well as update or delete existi
 
 ### Fetch All Tasks Endpoint
 
-`GET /tasks`
+```js
+GET /tasks
+```
 
 #### Parameters
 
@@ -33,7 +35,9 @@ They will have to ability to create new tasks as well as update or delete existi
 
 #### Success
 
-`200` OK
+```js
+200 OK
+```
 ```json
 [
     {
@@ -62,23 +66,21 @@ They will have to ability to create new tasks as well as update or delete existi
 
 #### Failure
 
-`500` Internal server error
-```json
-{
-    "type": "https://tools.ietf.org/html/rfc9110#section-15.6.1",
-    "title": "An error occurred while processing your request.",
-    "status": 500,
-    "traceId": "00-b637cabd3f4c910ebfa87b2df4e4d425-79196a3af1692da1-00"
-}
+```
+<empty>
 ```
 
 ### Fetch Task Endpoint
 
-`GET /tasks/{id}`
+```js
+GET /tasks/{id}
+```
 
 #### Success
 
-`200` OK
+```js
+200 OK
+```
 ```json
 {
     "id": "f328e10e-141f-4f0d-8e24-767cb20b5baf",
@@ -91,7 +93,9 @@ They will have to ability to create new tasks as well as update or delete existi
 
 #### Failure
 
-`404` Not Found
+```js
+404 Not Found
+```
 ```json
 {
     "type": "https://tools.ietf.org/html/rfc9110#section-15.5.5",
@@ -101,19 +105,11 @@ They will have to ability to create new tasks as well as update or delete existi
 }
 ```
 
-`500` Internal server error
-```json
-{
-    "type": "https://tools.ietf.org/html/rfc9110#section-15.6.1",
-    "title": "An error occurred while processing your request.",
-    "status": 500,
-    "traceId": "00-b637cabd3f4c910ebfa87b2df4e4d425-79196a3af1692da1-00"
-}
-```
-
 ### Create Task Endpoint
 
-`POST /tasks`
+```js
+POST /tasks
+```
 ```json
 {
     "taskDescription": "Grocery Shopping",
@@ -124,7 +120,11 @@ They will have to ability to create new tasks as well as update or delete existi
 
 #### Success
 
-`201` Created
+```js
+201 Created
+
+Location: {{host}}/tasks/e429ba35-5cd0-4fe9-856c-50a582ad79a2
+```
 ```json
 {
     "id": "e429ba35-5cd0-4fe9-856c-50a582ad79a2",
@@ -137,7 +137,9 @@ They will have to ability to create new tasks as well as update or delete existi
 
 #### Failure
 
-`400` Bad Request
+```js
+400 Bad Request
+```
 ```json
 {
     "type": "https://tools.ietf.org/html/rfc9110#section-15.5.1",
@@ -147,19 +149,11 @@ They will have to ability to create new tasks as well as update or delete existi
 }
 ```
 
-`500` Internal server error
-```json
-{
-    "type": "https://tools.ietf.org/html/rfc9110#section-15.6.1",
-    "title": "An error occurred while processing your request.",
-    "status": 500,
-    "traceId": "00-b637cabd3f4c910ebfa87b2df4e4d425-79196a3af1692da1-00"
-}
-```
-
 ### Update Task Endpoint
 
-`PUT /tasks/{id}`
+```js
+PUT /tasks/{id}
+```
 ```json
 {
     "id": "8260dbd0-1ce8-4c45-b8af-aeb09221945b",
@@ -172,12 +166,18 @@ They will have to ability to create new tasks as well as update or delete existi
 
 #### Success
 
-`204` No Content
+```js
+204 No Content
+```
 ```json
 <empty>
 ```
 
-`201` Created
+```js
+201 Created
+
+Location: {{host}}/tasks/e429ba35-5cd0-4fe9-856c-50a582ad79a2
+```
 ```json
 {
     "id": "e429ba35-5cd0-4fe9-856c-50a582ad79a2",
@@ -190,7 +190,9 @@ They will have to ability to create new tasks as well as update or delete existi
 
 #### Failure
 
-`400` Bad Request
+```js
+400 Bad Request
+```
 ```json
 {
     "type": "https://tools.ietf.org/html/rfc9110#section-15.5.1",
@@ -208,19 +210,11 @@ They will have to ability to create new tasks as well as update or delete existi
 }
 ```
 
-`500` Internal server error
-```json
-{
-    "type": "https://tools.ietf.org/html/rfc9110#section-15.6.1",
-    "title": "An error occurred while processing your request.",
-    "status": 500,
-    "traceId": "00-b637cabd3f4c910ebfa87b2df4e4d425-79196a3af1692da1-00"
-}
-```
-
 ### Delete Task Endpoint
 
-`DELETE /tasks/{id}`
+```js
+DELETE /tasks/{id}
+```
 
 #### Success
 
@@ -229,9 +223,11 @@ They will have to ability to create new tasks as well as update or delete existi
 <empty>
 ```
 
-#### Failure
+## Interval Server Error
 
-`500` Internal server error
+```js
+500 Internal server error
+```
 ```json
 {
     "type": "https://tools.ietf.org/html/rfc9110#section-15.6.1",
