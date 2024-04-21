@@ -225,6 +225,12 @@ DELETE /tasks/{id}
 <empty>
 ```
 
+#### Failure
+
+```
+<empty>
+```
+
 ## Interval Server Error
 
 ```js
