@@ -7,7 +7,7 @@ A **REST API** service for the following **Todo** app interface.
 ## 💅🏼 About
 - Developed by **[Sameer Mungole](https://www.linkedin.com/in/sameer-mungole/)**
 - Design Specifications: [Figma](https://www.figma.com/file/eH8JMqomFAgHsGgb4B50QO/Pages?type=design&node-id=0-1&mode=design)
-- API Specifications: *[Docs/API.md](https://github.com/hauntarl/todo-api/blob/main/Docs/API.md)*
+- API Specifications: *[Docs/API.md](Docs/API.md)*
 
 ### Technologies
 - [ASP.NET 8](https://dotnet.microsoft.com/en-us/download) (version `8.0.204`)
@@ -19,10 +19,11 @@ A **REST API** service for the following **Todo** app interface.
 - Swagger
 
 ### Resources
-- [YouTube](https://www.youtube.com/watch?v=PmDJIooZjBE): Industry Level REST API using .NET 6 – 
+- [YouTube:](https://www.youtube.com/watch?v=PmDJIooZjBE) Industry Level REST API using .NET 6 – 
   Tutorial for Beginners by *freeCodeCamp.org*
-- [Tutorial](https://learn.microsoft.com/en-us/aspnet/core/tutorials/first-web-api?view=aspnetcore-8.0&tabs=visual-studio): Create a web API with ASP.NET Core by *Microsoft*
-- [ErrorOr](https://github.com/amantinband/error-or): A simple, fluent discriminated union of an 
+- [Tutorial:](https://learn.microsoft.com/en-us/aspnet/core/tutorials/first-web-api?view=aspnetcore-8.0&tabs=visual-studio) 
+  Create a web API with ASP.NET Core by *Microsoft*
+- [ErrorOr:](https://github.com/amantinband/error-or) A simple, fluent discriminated union of an 
   error or a result by *Amichai Mantinband*
 
 > **NOTE:** This is actually my first ever **dotnet** project, hence I’ve taken extra efforts in the 
@@ -57,8 +58,8 @@ to update the service responsible for this without affecting other parts of the 
   **Minimal APIs** or **Controller-based APIs**.
 - I have opted to go with the later, as this is a standalone service responsible for managing all 
   **Todo** requests and responses.
-- Whereas, **Minimal APIs** ideal for micro-services and apps that want to include only the minimum 
-  files, features, and dependencies.
+- Whereas, **Minimal APIs** are ideal for micro-services and apps that want to include only the 
+  minimum files, features, and dependencies.
 
 **I have created two projects:**
 
@@ -87,8 +88,7 @@ Create a **Todo** solution:
 The template "Solution File" was created successfully.
 ```
 
-Create **Contracts** project, stores models representing the 
-*[API Specifications](https://github.com/hauntarl/todo-api/blob/main/Docs/API.md)*:
+Create **Contracts** project: (stores models representing the *[API Specification](Docs/API.md)*)
 ```cs
 % dotnet new classlib -o Todo.Contracts
 The template "Class Library" was created successfully.
@@ -115,30 +115,26 @@ Add both of our projects to the solution file:
 % dotnet sln add Todo.Contracts Todo
 ```
 
-You can cross-verify the added projects in the 
-*[Todo.sln](https://github.com/hauntarl/todo-api/blob/main/Todo.sln)*.
+You can cross-verify the added projects in the *[Todo.sln](Todo.sln)*.
 
-In the 
-*[Todo.Contracts.csproj](https://github.com/hauntarl/todo-api/blob/main/Todo.Contracts/Todo.Contracts.csproj)* 
-you will find the class library. We are using the **.NET SDK**, notice that we have `Nullable` 
-reference types enabled, which basically means that if we haven't defined that an object can be 
-`null` then it can't be `null`.
+In the *[Todo.Contracts.csproj](Todo.Contracts/Todo.Contracts.csproj)* you will find the class 
+library. We are using the **.NET SDK**, notice that we have `Nullable` reference types enabled, 
+which basically means that if we haven't defined that an object can be `null` then it can't be 
+`null`.
 
-*[Todo](https://github.com/hauntarl/todo-api/tree/main/Todo)* is our **webapi**. As we created the 
-project from the **dotnet CLI** using the **webapi** template with `--use-controllers` flag, we get 
-a few things out of the box. Here in the
-*[Todo.csproj](https://github.com/hauntarl/todo-api/blob/main/Todo/Todo.csproj)* we are using the 
-**.NET WEB SDK** and we also have the `Nullable` reference types enabled.
+*[Todo/](Todo)* is our **webapi**. As we created the project from the **dotnet CLI** using the 
+**webapi** template with `--use-controllers` flag, we get a few things out of the box. Here in the
+*[Todo.csproj](Todo/Todo.csproj)* we are using the **.NET WEB SDK** and we also have the `Nullable` 
+reference types enabled.
 
 ### Contracts
 
-Create the *[Tasks](https://github.com/hauntarl/todo-api/tree/main/Todo.Contracts/Tasks)* request 
-and response models based on the given
-*[API specifications](https://github.com/hauntarl/todo-api/blob/main/Docs/API.md)*.
+Create the *[Tasks](Todo.Contracts/Tasks)* request and response models under 
+[Todo.Contracts/](Todo.Contracts) based on the given *[API specification](Docs/API.md)*.
 
 > <img src="Docs/Images/API-Specifications.png" width="500">
 
-Add the **contract's** namespace to our **Todo** application:
+Add the **Contract's** namespace to our **Todo** application:
 ```cs
 % dotnet add Todo reference Todo.Contracts
 ```
@@ -158,7 +154,8 @@ Start the application in `http` mode:
 % dotnet run --project Todo
 ```
 
-To start the app in `https` mode, add the **HTTPS development certificates** to trusted certificates:
+To start the app in `https` mode, add the **HTTPS development certificates** to trusted 
+certificates:
 ```cs
 % dotnet dev-certs https --trust
 Successfully trusted the existing HTTPS certificate.
@@ -182,10 +179,10 @@ To test the **APIs**, you can access **Swagger** at:
 
 ### Rest Client
 
-Make sure you have the [Rest Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) plugin installed on your **VS Code**.
+Make sure you have the [Rest Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) 
+plugin installed on your **VS Code**.
 
-- Navigate to *[Requests/](https://github.com/hauntarl/todo-api/tree/main/Requests)* folder, open 
-  files with the `.http` extension
+- Navigate to *[Requests/](Requests)* folder, open files with the `.http` extension.
 - You should see a `Send Request` button on top of your **HTTP Request** definition.
 - Click `Send Request` button to see the **HTTP Response** in a new tab.
 
