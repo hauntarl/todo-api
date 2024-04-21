@@ -9,7 +9,7 @@ They will have to ability to create new tasks as well as update or delete existi
 
 `GET /tasks`
 
-**Parameters:**
+#### Parameters
 
 - name: `?completed=bool`
 - type: **bool**
@@ -31,41 +31,44 @@ They will have to ability to create new tasks as well as update or delete existi
 - type: **string**
 - description: sorts by created date (descending)
 
-Response Code: `200` OK
+#### Success
 
-Response Body:
+`200` OK
 ```json
 [
     {
-        "id": GUID,
-        "taskDescription": "**string**",
-        "createdDate": "**string**",
-        "dueDate": "**string**",
-        "completed": bool
+        "id": "800513d7-1c11-416e-8287-8480cb41accd",
+        "taskDescription": "Grocery Shopping",
+        "createdDate": "2024-04-21T02:32:39.014829Z",
+        "dueDate": "2024-04-30T11:00:00Z",
+        "completed": false
     },
     {
-        "id": GUID,
-        "taskDescription": "**string**",
-        "createdDate": "**string**",
-        "dueDate": "**string**",
-        "completed": bool
+        "id": "0095da82-5a1f-4715-ad0f-e05347c58c41",
+        "taskDescription": "Clean House",
+        "createdDate": "2024-04-21T02:33:11.346353Z",
+        "dueDate": "2024-05-10T15:00:00Z",
+        "completed": false
     },
     {
-        "id": GUID,
-        "taskDescription": "**string**",
-        "createdDate": "**string**",
-        "dueDate": "**string**",
-        "completed": bool
-    },
-    ...
+        "id": "f328e10e-141f-4f0d-8e24-767cb20b5baf",
+        "taskDescription": "Blog Post",
+        "createdDate": "2024-04-21T02:33:54.172113Z",
+        "dueDate": "2024-05-20T15:00:00Z",
+        "completed": false
+    }
 ]
 ```
 
-Failure States: `4XX` Client Error
+#### Failure
 
+`500` Internal server error
 ```json
 {
-    message: "**string**"
+    "type": "https://tools.ietf.org/html/rfc9110#section-15.6.1",
+    "title": "An error occurred while processing your request.",
+    "status": 500,
+    "traceId": "00-b637cabd3f4c910ebfa87b2df4e4d425-79196a3af1692da1-00"
 }
 ```
 
@@ -73,92 +76,145 @@ Failure States: `4XX` Client Error
 
 `GET /tasks/{id}`
 
-Response Code: `200` OK
+#### Success
 
-Response Body:
+`200` OK
 ```json
-
 {
-    "id": GUID,
-    "taskDescription": "**string**",
-    "createdDate": "**string**",
-    "dueDate": "**string**",
-    "completed": bool
+    "id": "f328e10e-141f-4f0d-8e24-767cb20b5baf",
+    "taskDescription": "Blog Post",
+    "createdDate": "2024-04-21T02:33:54.172113Z",
+    "dueDate": "2024-05-20T15:00:00Z",
+    "completed": false
 }
 ```
 
-Failure States: `4XX` Client Error
+#### Failure
+
+`404` Not Found
 ```json
 {
-    message: "**string**"
+    "type": "https://tools.ietf.org/html/rfc9110#section-15.5.5",
+    "title": "Task not found",
+    "status": 404,
+    "traceId": "00-67084c94108517c7b13dd97ebb1c171f-ecfe7623d119970b-00"
+}
+```
+
+`500` Internal server error
+```json
+{
+    "type": "https://tools.ietf.org/html/rfc9110#section-15.6.1",
+    "title": "An error occurred while processing your request.",
+    "status": 500,
+    "traceId": "00-b637cabd3f4c910ebfa87b2df4e4d425-79196a3af1692da1-00"
 }
 ```
 
 ### Create Task Endpoint
 
 `POST /tasks`
-
-Request Body:
 ```json
 {
-    "taskDescription": "**string**",
-    "dueDate": "**string**",
-    "completed": bool
+    "taskDescription": "Grocery Shopping",
+    "dueDate": "2024-04-30T11:00:00.000000Z",
+    "completed": false
 }
 ```
 
-Response Code: `201` CREATED
+#### Success
 
-Response Body:
+`201` Created
 ```json
 {
-    "id": GUID,
-    "taskDescription": "**string**",
-    "createdDate": "**string**",
-    "dueDate": "**string**",
-    "completed": bool
+    "id": "e429ba35-5cd0-4fe9-856c-50a582ad79a2",
+    "taskDescription": "Grocery Shopping",
+    "createdDate": "2024-04-21T02:44:10.641677Z",
+    "dueDate": "2024-04-30T11:00:00Z",
+    "completed": false
 }
 ```
 
-Failure States: `4XX` Client Error
+#### Failure
+
+`400` Bad Request
 ```json
 {
-    message: "**string**"
+    "type": "https://tools.ietf.org/html/rfc9110#section-15.5.1",
+    "title": "Task description must be atleast 3 characters long",
+    "status": 400,
+    "traceId": "00-b11ab92e6ea9715b4cef612a9bf721c5-0df83cb0b13f678a-00"
+}
+```
+
+`500` Internal server error
+```json
+{
+    "type": "https://tools.ietf.org/html/rfc9110#section-15.6.1",
+    "title": "An error occurred while processing your request.",
+    "status": 500,
+    "traceId": "00-b637cabd3f4c910ebfa87b2df4e4d425-79196a3af1692da1-00"
 }
 ```
 
 ### Update Task Endpoint
 
 `PUT /tasks/{id}`
-
-Request Body:
 ```json
 {
-    "id": GUID,                      //immutable
-    "taskDescription": "**string**",
-    "createdDate": "**string**",         //immutable
-    "dueDate": "**string**",
-    "completed": bool
+    "id": "8260dbd0-1ce8-4c45-b8af-aeb09221945b",
+    "taskDescription": "Blog Post",
+    "createdDate": "2024-04-21T02:47:37.223515Z",
+    "dueDate": "2024-05-20T00:00:00Z",
+    "completed": true
 }
 ```
 
-Response Code: `200` OK
+#### Success
 
-Response Body:
+`204` No Content
+```json
+<empty>
+```
+
+`201` Created
 ```json
 {
-    "id": GUID,
-    "taskDescription": "**string**",
-    "createdDate": "**string**",
-    "dueDate": "**string**",
-    "completed": bool
+    "id": "e429ba35-5cd0-4fe9-856c-50a582ad79a2",
+    "taskDescription": "Grocery Shopping",
+    "createdDate": "2024-04-21T02:44:10.641677Z",
+    "dueDate": "2024-04-30T11:00:00Z",
+    "completed": false
 }
 ```
 
-Failure States: `4XX` Client Error
+#### Failure
+
+`400` Bad Request
 ```json
 {
-    message: "**string**"
+    "type": "https://tools.ietf.org/html/rfc9110#section-15.5.1",
+    "title": "Task description must be atleast 3 characters long",
+    "status": 400,
+    "traceId": "00-ac98218f107e9587615a4641bfb284c5-2ff0865aea658198-00"
+}
+```
+```json
+{
+    "type": "https://tools.ietf.org/html/rfc9110#section-15.5.1",
+    "title": "Task id must be the same.",
+    "status": 400,
+    "traceId": "00-176b26ddfa2700a7b14b7da4a742d0a9-c1f7dd7fc14cb973-00"
+}
+```
+
+`500` Internal server error
+```json
+{
+    "type": "https://tools.ietf.org/html/rfc9110#section-15.6.1",
+    "title": "An error occurred while processing your request.",
+    "status": 500,
+    "traceId": "00-b637cabd3f4c910ebfa87b2df4e4d425-79196a3af1692da1-00"
 }
 ```
 
@@ -166,13 +222,21 @@ Failure States: `4XX` Client Error
 
 `DELETE /tasks/{id}`
 
-Repsonse Code: `200` OK
+#### Success
 
-Response Body:
+`204` No Content
+```json
+<empty>
+```
 
-Failure States: `4XX` Client Error
+#### Failure
+
+`500` Internal server error
 ```json
 {
-    message: "**string**"
+    "type": "https://tools.ietf.org/html/rfc9110#section-15.6.1",
+    "title": "An error occurred while processing your request.",
+    "status": 500,
+    "traceId": "00-b637cabd3f4c910ebfa87b2df4e4d425-79196a3af1692da1-00"
 }
 ```

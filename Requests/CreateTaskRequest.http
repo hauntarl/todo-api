@@ -5,7 +5,7 @@ Content-Type: application/json
 
 {
     "taskDescription": "Grocery Shopping",
-    "dueDate": "2022-04-08T11:00:00",
+    "dueDate": "2024-04-30T11:00:00.000000Z",
     "completed": false
 }
 
@@ -16,7 +16,7 @@ Content-Type: application/json
 
 {
     "taskDescription": "Clean House",
-    "dueDate": "2023-06-20T15:00:00",
+    "dueDate": "2024-05-10T15:00:00.000000Z",
     "completed": false
 }
 
@@ -26,7 +26,18 @@ POST {{Todo_HostAddress}}/tasks
 Content-Type: application/json
 
 {
-    "taskDescription": "  Cl  ",
-    "dueDate": "2023-06-20T15:00:00",
+    "taskDescription": "Blog Post",
+    "dueDate": "2024-05-20T00:00:00.000000Z",
+    "completed": false
+}
+
+###
+
+POST {{Todo_HostAddress}}/tasks
+Content-Type: application/json
+
+{
+    "taskDescription": "   Bl   ",
+    "dueDate": "2024-05-20T00:00:00.000000Z",
     "completed": false
 }

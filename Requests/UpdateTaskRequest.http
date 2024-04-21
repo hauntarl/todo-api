@@ -1,15 +1,41 @@
 @Todo_HostAddress = https://localhost:7104
 
-@Id = 43342247-016d-4dfd-ae0e-b9f45eef1136
+@Id = 8260dbd0-1ce8-4c45-b8af-aeb09221945b
 
 PUT {{Todo_HostAddress}}/tasks/{{Id}}
 Content-Type: application/json
 
 {
-    "id": "43342247-016d-4dfd-ae0e-b9f45eef1136",
-    "taskDescription": "Clean House",
-    "createdDate": "2024-04-20T04:52:12.31852Z",
-    "dueDate": "2023-06-20T15:00:00",
+    "id": "8260dbd0-1ce8-4c45-b8af-aeb09221945b",
+    "taskDescription": "Blog Post",
+    "createdDate": "2024-04-21T02:47:37.223515Z",
+    "dueDate": "2024-05-20T00:00:00Z",
+    "completed": true
+}
+
+###
+
+PUT {{Todo_HostAddress}}/tasks/{{Id}}
+Content-Type: application/json
+
+{
+    "id": "8260dbd0-1ce8-4c45-b8af-aeb09221945b",
+    "taskDescription": "   Bl   ",
+    "createdDate": "2024-04-21T02:47:37.223515Z",
+    "dueDate": "2024-05-20T00:00:00Z",
+    "completed": true
+}
+
+###
+
+PUT {{Todo_HostAddress}}/tasks/{{Id}}
+Content-Type: application/json
+
+{
+    "id": "54c0a520-bc78-436a-858d-8dfe7e1832f6",
+    "taskDescription": "Blog Post",
+    "createdDate": "2024-04-21T02:47:37.223515Z",
+    "dueDate": "2024-05-20T00:00:00Z",
     "completed": true
 }
 
