@@ -9,6 +9,7 @@ They will have to ability to create new tasks as well as update or delete existi
 
 ```js
 GET /tasks
+Accept: application/json
 ```
 
 #### Parameters
@@ -74,6 +75,7 @@ GET /tasks
 
 ```js
 GET /tasks/{id}
+Accept: application/json
 ```
 
 #### Success
@@ -109,6 +111,8 @@ GET /tasks/{id}
 
 ```js
 POST /tasks
+Accept: application/json
+Content-Type: application/json
 ```
 ```json
 {
@@ -153,6 +157,8 @@ Location: {{host}}/tasks/e429ba35-5cd0-4fe9-856c-50a582ad79a2
 
 ```js
 PUT /tasks/{id}
+Accept: application/json
+Content-Type: application/json
 ```
 ```json
 {
@@ -214,6 +220,7 @@ Location: {{host}}/tasks/e429ba35-5cd0-4fe9-856c-50a582ad79a2
 
 ```js
 DELETE /tasks/{id}
+Accept: application/json
 ```
 
 #### Success
