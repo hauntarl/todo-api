@@ -9,6 +9,11 @@ A **REST API** service for the following **Todo** app interface.
 - Design Specifications: [Figma](https://www.figma.com/file/eH8JMqomFAgHsGgb4B50QO/Pages?type=design&node-id=0-1&mode=design)
 - API Specifications: *[Docs/API.md](Docs/API.md)*
 
+> **NOTE:**  I've updated the **[API specifications](Docs/API.md)** to accurately represent this 
+> service's request and response data, along with detailed description of the different types of 
+> errors each request is capable of generating. I urge you to take a look at it in order to 
+> understand the service better.
+
 ### Technologies
 - [ASP.NET 8](https://dotnet.microsoft.com/en-us/download) (version `8.0.204`)
 - dotnet CLI (Bundled with **ASP.NET 8**)
@@ -18,16 +23,47 @@ A **REST API** service for the following **Todo** app interface.
   - [Rest Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) by *Huachao Mao*
 - Swagger
 
-### Resources
-- [YouTube:](https://www.youtube.com/watch?v=PmDJIooZjBE) Industry Level REST API using .NET 6 – 
-  Tutorial for Beginners by *freeCodeCamp.org*
-- [Tutorial:](https://learn.microsoft.com/en-us/aspnet/core/tutorials/first-web-api?view=aspnetcore-8.0&tabs=visual-studio) 
-  Create a web API with ASP.NET Core by *Microsoft*
-- [ErrorOr:](https://github.com/amantinband/error-or) A simple, fluent discriminated union of an 
-  error or a result by *Amichai Mantinband*
+## 🏃‍➡️ Build and run
 
-> **NOTE:** This is actually my first ever **dotnet** project, hence I’ve taken extra efforts in the 
-> documentation for this project so that I can revisit this app for reference in the future.
+Start the application in `http` mode:
+```console
+% dotnet build
+% dotnet run --project Todo
+```
+
+To start the app in `https` mode, add the **HTTPS development certificates** to trusted 
+certificates:
+```console
+% dotnet dev-certs https --trust
+Successfully trusted the existing HTTPS certificate.
+```
+
+Then select `https` launch profile while starting the application:
+```console
+% dotnet build
+% dotnet run --launch-profile https --project Todo
+```
+
+## 🥸 Test
+
+### Swagger
+
+To test the **APIs**, you can access **Swagger** at:
+- [http://localhost:5181/swagger/index.html](http://localhost:5181/swagger/index.html)
+- [https://localhost:7104/swagger/index.html](https://localhost:7104/swagger/index.html)
+
+<img src="Docs/Images/Swagger.png" width="500">
+
+### Rest Client
+
+Make sure you have the [Rest Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) 
+plugin installed on your **VS Code**.
+
+- Navigate to *[Requests/](Requests)* folder, open files with the `.http` extension.
+- You should see a `Send Request` button on top of your **HTTP Request** definition.
+- Click `Send Request` button to see the **HTTP Response** in a new tab.
+
+<img src="Docs/Images/Rest-Client.png" width="500">
 
 ## 🏛️ Architecture
 
@@ -40,7 +76,7 @@ A **REST API** service for the following **Todo** app interface.
 - Concurrency First
 - Best Practices
 
-> **Note:** Not every backend system needs to follow **Clean Architecture** and
+> **NOTE:** Not every backend system needs to follow **Clean Architecture** and
 > **Domain-Driven Design** principles, especially when the application is small/medium. It can add
 > a few layer of complexity which aren't always worth the effort.
 
@@ -146,44 +182,13 @@ Add the `ErrorOr` package to our **Todo** application for error handling:
 % dotnet add Todo package ErrorOr
 ```
 
-## 🏃‍➡️ Build and run
+### Resources
+- [YouTube:](https://www.youtube.com/watch?v=PmDJIooZjBE) Industry Level REST API using .NET 6 – 
+  Tutorial for Beginners by *freeCodeCamp.org*
+- [Tutorial:](https://learn.microsoft.com/en-us/aspnet/core/tutorials/first-web-api?view=aspnetcore-8.0&tabs=visual-studio) 
+  Create a web API with ASP.NET Core by *Microsoft*
+- [ErrorOr:](https://github.com/amantinband/error-or) A simple, fluent discriminated union of an 
+  error or a result by *Amichai Mantinband*
 
-Start the application in `http` mode:
-```console
-% dotnet build
-% dotnet run --project Todo
-```
-
-To start the app in `https` mode, add the **HTTPS development certificates** to trusted 
-certificates:
-```console
-% dotnet dev-certs https --trust
-Successfully trusted the existing HTTPS certificate.
-```
-
-Then select `https` launch profile while starting the application:
-```console
-% dotnet build
-% dotnet run --launch-profile https --project Todo
-```
-
-## 🥸 Test
-
-### Swagger
-
-To test the **APIs**, you can access **Swagger** at:
-- [http://localhost:5181/swagger/index.html](http://localhost:5181/swagger/index.html)
-- [https://localhost:7104/swagger/index.html](https://localhost:7104/swagger/index.html)
-
-<img src="Docs/Images/Swagger.png" width="500">
-
-### Rest Client
-
-Make sure you have the [Rest Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) 
-plugin installed on your **VS Code**.
-
-- Navigate to *[Requests/](Requests)* folder, open files with the `.http` extension.
-- You should see a `Send Request` button on top of your **HTTP Request** definition.
-- Click `Send Request` button to see the **HTTP Response** in a new tab.
-
-<img src="Docs/Images/Rest-Client.png" width="500">
+> **NOTE:** This is actually my first ever **dotnet** project, hence I’ve taken extra efforts in the 
+> documentation for this project so that I can revisit this app for reference in the future.
