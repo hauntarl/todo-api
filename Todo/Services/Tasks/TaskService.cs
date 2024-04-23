@@ -1,4 +1,5 @@
 
+using System.Collections.Concurrent;
 using ErrorOr;
 using Todo.Models;
 using Todo.ServiceErrors;
@@ -7,23 +8,28 @@ namespace Todo.Services.Tasks;
 
 public class TaskService : ITaskService
 {
-    private static readonly Dictionary<Guid, TaskItem> _tasks = [];
+    private static readonly ConcurrentDictionary<Guid, TaskItem> _tasks = [];
 
     public async Task<ErrorOr<Created>> CreateTask(TaskItem item)
     {
-        await Task.Run(() => _tasks.Add(item.Id, item));
-        return Result.Created;
+        return await Task.Run(() => _tasks.TryAdd(item.Id, item))
+        ? Result.Created
+        : Errors.TaskItem.Failure("Failed to create a new task");
     }
 
     public async Task<ErrorOr<Deleted>> DeleteTask(Guid id)
     {
-        await Task.Run(() => _tasks.Remove(id));
-        return Result.Deleted;
+        return await Task.Run(() => _tasks.TryRemove(id, out _))
+        ? Result.Deleted
+        : Errors.TaskItem.Failure("Failed to remove the task");
     }
 
     public async Task<ErrorOr<TaskItem>> FetchTask(Guid id)
     {
-        var item = await Task.Run(() => _tasks.GetValueOrDefault(id));
+        var item = await Task.Run(() => { 
+            _tasks.TryGetValue(id, out var item);
+            return item;
+        });
         return item != null ? item : Errors.TaskItem.NotFound;
     }
 
@@ -31,17 +37,18 @@ public class TaskService : ITaskService
         bool? filterByCompleted,
         string? sortBy)
     {
-        return await Task.Run(() => {
-            var items = _tasks.Values.ToList();
-            // Filter tasks based on the completed parameter value
-            if (filterByCompleted != null)
-            {
-                items.RemoveAll(item => item.Completed != filterByCompleted.Value);
-            }
+        var items = await Task.Run(() => _tasks.Values.ToList());
+        if (items == null) {
+            return new List<TaskItem>();
+        }
 
-            // Sort the tasks based on the sort_by parameter value
-            return Sort(items, sortBy);
-         });
+        // Filter tasks based on the completed parameter value
+        if (filterByCompleted != null)
+        {
+            items.RemoveAll(item => item.Completed != filterByCompleted.Value);
+        }
+        // Sort the tasks based on the sort_by parameter value
+        return Sort(items, sortBy);
     }
 
     public async Task<ErrorOr<UpdatedTask>> UpdateTask(TaskItem item)
@@ -49,7 +56,7 @@ public class TaskService : ITaskService
         return await Task.Run(() =>
         {
             var isNewlyCreated = !_tasks.ContainsKey(item.Id);
-            _tasks[item.Id] = item;
+            _tasks.AddOrUpdate(item.Id, item, (_, _) => item);
             return new UpdatedTask(isNewlyCreated);
         });
     }

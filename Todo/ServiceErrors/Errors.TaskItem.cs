@@ -19,5 +19,10 @@ public static class Errors
             code: "TaskItem.InvalidDescription",
             description: "Task description must be atleast " + 
             $"{MinTaskDescriptionLength} characters long");
+
+        public static Error Failure(string description) => Error.Failure(
+            code: "TaskItem.Failure",
+            description: description
+        );
     }
 }
