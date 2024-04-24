@@ -2,7 +2,9 @@
 
 A **REST API** service for the following **Todo** app interface.
 
-> <img src="Docs/Images/Design.png" width="500">
+> <img src="https://github.com/hauntarl/hauntarl/blob/master/todo/TaskItem.gif" width="160">
+> <img src="https://github.com/hauntarl/hauntarl/blob/master/todo/TaskFilters.gif" width="160">
+> <img src="https://github.com/hauntarl/hauntarl/blob/master/todo/TaskCreate.gif" width="160">
 
 ## 👨🏻‍💻 About
 - Developed by **[Sameer Mungole](https://www.linkedin.com/in/sameer-mungole/)**
