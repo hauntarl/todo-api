@@ -4,7 +4,7 @@ A **REST API** service for the following **Todo** app interface.
 
 > <img src="Docs/Images/Design.png" width="500">
 
-## 💅🏼 About
+## 👨🏻‍💻 About
 - Developed by **[Sameer Mungole](https://www.linkedin.com/in/sameer-mungole/)**
 - Design Specifications: [Figma](https://www.figma.com/file/eH8JMqomFAgHsGgb4B50QO/Pages?type=design&node-id=0-1&mode=design)
 - API Specifications: *[Docs/API.md](Docs/API.md)*
@@ -65,7 +65,7 @@ plugin installed on your **VS Code**.
 
 <img src="Docs/Images/Rest-Client.png" width="500">
 
-## 🏛️ Architecture
+## 🏗️ Architecture
 
 > <img src="Docs/Images/Application.png" width="200">
 > <img src="Docs/Images/Contracts.png" width="200">
