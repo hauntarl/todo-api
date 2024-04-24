@@ -1,6 +1,6 @@
 # 📝 Todo API
 
-A **REST API** service for the following **Todo** app interface.
+A **REST API** service for the the **[Todo App](https://github.com/hauntarl/todo)** interface.
 
 > <img src="https://github.com/hauntarl/hauntarl/blob/master/todo/TaskItem.gif" width="160">
 > <img src="https://github.com/hauntarl/hauntarl/blob/master/todo/TaskFilters.gif" width="160">
